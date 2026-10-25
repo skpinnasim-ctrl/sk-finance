@@ -636,6 +636,34 @@
       .form-card{ transition: none; }
     }
 
+
+    /* === כפתור התקשרו עכשיו – מהבהב === */
+    .btn-call{animation:callPulse 1.6s ease-in-out infinite, callGlow 1.6s ease-in-out infinite;}
+    @keyframes callPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+    @keyframes callGlow{0%,100%{box-shadow:0 10px 24px rgba(11,37,69,.3),0 0 0 0 rgba(201,162,39,.65)}
+      60%{box-shadow:0 14px 30px rgba(11,37,69,.4),0 0 0 18px rgba(201,162,39,0)}}
+    .btn-call:hover{animation-play-state:paused;}
+    .ring-phone{display:inline-block;margin-left:6px;transform-origin:50% 60%;animation:ringPhone 1.6s ease-in-out infinite;}
+    @keyframes ringPhone{0%,40%,100%{transform:rotate(0)}5%,15%,25%{transform:rotate(-18deg)}10%,20%,30%{transform:rotate(18deg)}}
+    .btn-call::after{content:"";position:absolute;inset:0;border-radius:inherit;background:rgba(255,255,255,.18);
+      opacity:0;animation:callBlink 1.6s ease-in-out infinite;pointer-events:none;}
+    @keyframes callBlink{0%,100%{opacity:0}50%{opacity:1}}
+
+    /* === כפתור צרו קשר בראש העמוד – אנימציה + ציפור === */
+    .btn-cta-anim{position:relative;display:inline-flex;align-items:center;overflow:visible;
+      background:linear-gradient(90deg,var(--navy),var(--ocean),var(--sky),var(--navy));background-size:300% 100%;
+      animation:ctaShift 4s linear infinite, ctaBounce 2.4s ease-in-out infinite;}
+    @keyframes ctaShift{0%{background-position:0 0}100%{background-position:300% 0}}
+    @keyframes ctaBounce{0%,70%,100%{transform:translateY(0)}80%{transform:translateY(-4px)}90%{transform:translateY(1px)}}
+    .cta-bird{position:absolute;top:50%;left:50%;width:28px;height:17px;margin:-8px 0 0 -14px;overflow:visible;pointer-events:none;z-index:2;
+      animation:birdFly 5s linear infinite;}
+    .cta-bird path{fill:none;stroke:var(--gold,#c9a227);stroke-width:4;stroke-linecap:round;}
+    .cb-wl,.cb-wr{transform-origin:30px 18px;animation:flap .35s ease-in-out infinite alternate;}
+    .cb-wr{animation-name:flapR;}
+    @keyframes flap{from{transform:rotate(0)}to{transform:rotate(-22deg)}}
+    @keyframes flapR{from{transform:rotate(0)}to{transform:rotate(22deg)}}
+    @keyframes birdFly{0.00%{transform:translate(-78.0px,0.0px) scale(1.00)}4.17%{transform:translate(-75.3px,-4.9px) scale(1.04)}8.33%{transform:translate(-67.5px,-10.5px) scale(1.07)}12.50%{transform:translate(-55.2px,-17.0px) scale(1.11)}16.67%{transform:translate(-39.0px,-23.4px) scale(1.13)}20.83%{transform:translate(-20.2px,-28.2px) scale(1.14)}25.00%{transform:translate(-0.0px,-30.0px) scale(1.15)}29.17%{transform:translate(20.2px,-28.2px) scale(1.14)}33.33%{transform:translate(39.0px,-23.4px) scale(1.13)}37.50%{transform:translate(55.2px,-17.0px) scale(1.11)}41.67%{transform:translate(67.5px,-10.5px) scale(1.07)}45.83%{transform:translate(75.3px,-4.9px) scale(1.04)}50.00%{transform:translate(78.0px,-0.0px) scale(1.00)}54.17%{transform:translate(75.3px,4.9px) scale(0.96)}58.33%{transform:translate(67.5px,10.5px) scale(0.93)}62.50%{transform:translate(55.2px,17.0px) scale(0.89)}66.67%{transform:translate(39.0px,23.4px) scale(0.87)}70.83%{transform:translate(20.2px,28.2px) scale(0.86)}75.00%{transform:translate(0.0px,30.0px) scale(0.85)}79.17%{transform:translate(-20.2px,28.2px) scale(0.86)}83.33%{transform:translate(-39.0px,23.4px) scale(0.87)}87.50%{transform:translate(-55.2px,17.0px) scale(0.89)}91.67%{transform:translate(-67.5px,10.5px) scale(0.92)}95.83%{transform:translate(-75.3px,4.9px) scale(0.96)}100.00%{transform:translate(-78.0px,0.0px) scale(1.00)}}
+    @media (prefers-reduced-motion: reduce){.btn-call,.ring-phone,.btn-call::after,.btn-cta-anim,.cta-bird,.cb-wl,.cb-wr{animation:none;}}
 </style>
 </head>
 <body>
@@ -662,7 +690,7 @@
             </a>
         </nav>
         <div style="display:flex;align-items:center;gap:14px;">
-            <a href="#contact" class="btn-cta">צרו קשר</a>
+            <a href="#contact" class="btn-cta btn-cta-anim"><svg class="cta-bird" viewBox="0 0 60 34" aria-hidden="true"><g class="cta-bird-body"><path class="cb-wl" d="M30 18 Q16 2 3 12"/><path class="cb-wr" d="M30 18 Q44 2 57 12"/></g></svg>צרו קשר</a>
             <div class="burger"><span></span><span></span><span></span></div>
         </div>
     </div>
@@ -681,7 +709,7 @@
             <h1>ש.כ פיננסים — השער שלך <span>לעתיד בטוח</span></h1>
             <p>ליווי מקצועי, אישי ושקוף בביטוח, פנסיה, משכנתאות והחזרי מס — כדי שתוכלו לישון בשקט.</p>
             <p class="mission-text">אנו מעניקים ליווי מקיף ומקצועי בכל צמתי החיים החשובים, ונספק לך <b>100% מהפתרונות</b> בתחומי בדיקה מקיפה בהר הביטוח, בדיקה בהר הכסף, הוזלת פוליסות, בדיקת זכויות רפואיות וסוציאליות, חיסכון לפנסיה, מיסוי ומשכנתאות — וזאת תוך מתן מענה מקצועי, זמינות גבוהה, הוגנות ומחויבות לתוצאות. מילת המפתח שמנחה אותנו בכל צעד וכל פעולה היא <b>"אכפתיות"</b>.</p>
-            <a href="#contact" class="btn-primary">קבע פגישת ייעוץ</a>
+            <a href="tel:0522397731" class="btn-primary btn-call"><span class="ring-phone" aria-hidden="true">📞</span> התקשרו עכשיו</a>
             <div class="diamond-strip"><span></span><span></span><span></span></div>
         </div>
     </section>
